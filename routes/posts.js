@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { getFirestore, collection, getDocs } = require('firebase-admin/firestore');
 const getDataBase = require('../firebase/database');
 
-// Access the initialized Firestore instance from the main server file
 const db = getDataBase();
 
 
-router.get('/', async (req, res) => {
 
+
+router.get('/', async (req, res) => {
+   try {
         const posts = []
 
 		const docRef = db.collection('posts');
@@ -16,13 +16,32 @@ router.get('/', async (req, res) => {
         if(snapShot){
 
             snapShot.forEach((doc) => {
-
-                console.log(doc.data(),'dooooc')
-
-
+                posts.push(doc.data());
             })
-            res.send("Get Succseed")
+            res.status(200).send("Get posts Succseed");
         }
+   } catch (error) {
+    console.error("error", error);
+   }
+});
+
+router.post('/', async (req, res) => {
+    // Adding post with auto generated id
+   try {
+        const { title, content } = req.body;
+
+        await db.collection('posts').add({
+            title: title,
+            content: content,
+        });
+
+        res.status(201).json({ message: ' Post created sccessfully'})
+
+   } catch (error) {
+    console.error("error", error);
+    console.error('Error creating post:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+   }
 });
 
 module.exports = router;
