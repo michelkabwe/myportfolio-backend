@@ -5,8 +5,6 @@ const getDataBase = require('../firebase/database');
 const db = getDataBase();
 
 
-
-
 router.get('/', async (req, res) => {
    try {
         const posts = []
@@ -17,6 +15,7 @@ router.get('/', async (req, res) => {
 
             snapShot.forEach((doc) => {
                 posts.push(doc.data());
+                console.log(posts,'posts');
             })
             res.status(200).send(posts);
         }
@@ -46,14 +45,16 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/:id', async (req, res) => {
+router.post('/', async (req, res) => {
     // Adding post with auto generated id
    try {
-        const { title, content } = req.body;
+        const { title, content, selectedCategory } = req.body;
 
         await db.collection('posts').add({
             title: title,
             content: content,
+            category_id: selectedCategory
+
         });
 
         res.status(201).json({ message: ' Post created sccessfully'})
@@ -64,5 +65,8 @@ router.post('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
    }
 });
+
+
+
 
 module.exports = router;
