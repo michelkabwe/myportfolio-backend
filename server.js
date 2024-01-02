@@ -7,9 +7,10 @@ const server = express();
 const cors = require('cors');
 const corsOptions = {
   origin: 'http://localhost:3000',
-  methods: 'GET, HEAD, PUT, PATCH, POST , DELETE',
-  creadentials: true
-}
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE', // Remove spaces after commas
+  credentials: true // Corrected spelling
+};
+
 server.use(cors());
 server.use(cors(corsOptions));
 
@@ -17,6 +18,7 @@ server.use(cors(corsOptions));
 
 // Set up API routes
 const postsRoutes = require('./routes/posts');
+const uploadRoutes = require('./routes/upload');
 const usersRoutes = require('./routes/users');
 const categoriesRoutes = require('./routes/categories');
 
@@ -24,6 +26,7 @@ server.use(express.json());
 server.use('/api/posts', postsRoutes);
 server.use('/api/users', usersRoutes);
 server.use('/api/categories', categoriesRoutes);
+server.use('/api/upload', uploadRoutes);
 
 
 server.get('/', (req, res) => {
