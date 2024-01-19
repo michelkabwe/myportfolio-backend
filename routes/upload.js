@@ -11,7 +11,10 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).send('No file uploaded.');
+      return res.status(200).json({
+        message: 'No file uploaded',
+        imageUrl: null // You can set it to null or any default value you prefer
+      });
     }
 
     const uploadedFile = req.file;
@@ -24,9 +27,8 @@ router.post('/', upload.single('file'), async (req, res) => {
       },
     });
 
-    const expirationDate = new Date(Date.now() + 3600000);
+    const expirationDate = new Date('2100-01-01T00:00:00Z');
 
-    // Get the download URL for the uploaded file
     const [downloadUrl] = await destination.getSignedUrl({
       action: 'read',
       expires: expirationDate,
