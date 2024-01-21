@@ -6,7 +6,7 @@ const server = express();
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://michelkabwe.netlify.app/',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE', // Remove spaces after commas
   credentials: true // Corrected spelling
 };
@@ -21,25 +21,27 @@ const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
 const usersRoutes = require('./routes/users');
 const categoriesRoutes = require('./routes/categories');
+const authRoutes = require('./routes/auth');
 
 server.use(express.json());
 server.use('/api/posts', postsRoutes);
 server.use('/api/users', usersRoutes);
 server.use('/api/categories', categoriesRoutes);
 server.use('/api/upload', uploadRoutes);
+server.use('/api/auth', authRoutes);
 
 
-server.get('/', (req, res) => {
+/*server.get('/', (req, res) => {
   res.send('Helloworld');
-})
+})*/
 
 // Serve static files from the React build directory
-//server.use(express.static(path.join(__dirname, '../frontend/build')));
+server.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Handle all other routes by serving the React app's index.html
-/*server.get('*', (req, res) => {
+server.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});*/
+});
 
 
 const PORT = process.env.PORT || 3001;
