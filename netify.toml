@@ -1,3 +1,4 @@
 [build]
+  base = "backend"
   command = "npm install && npm run start"
-  functions = "backend/routes/"
+  functions = "routes/"
