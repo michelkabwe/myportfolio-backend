@@ -6,17 +6,15 @@ const server = express();
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'https://michelkabwe.netlify.app/',
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE', // Remove spaces after commas
-  credentials: true // Corrected spelling
+  origin: 'https://michelkabwe.netlify.app',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  credentials: true
 };
 
 server.use(cors());
 server.use(cors(corsOptions));
 
 
-
-// Set up API routes
 const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
 const usersRoutes = require('./routes/users');
