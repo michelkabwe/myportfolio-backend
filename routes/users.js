@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
-const getDataBase = require('../firebase/database');
-
+const { getDataBase } = require('../firebase/firebase-admin');
 const db = getDataBase();
 
 router.get('/', async (req, res) => {
+
     try {
 
         const usersList = []
@@ -85,5 +85,4 @@ router.post('/', async (req, res) => {
 })
 
 module.exports = router;
-
 
