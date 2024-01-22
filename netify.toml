@@ -1,5 +1,4 @@
 [build]
-  base = "backend"
-  command = "npm install && npm start"
-  functions = "routes"
+  command = "nodemon server.js"
+  functions = "routes/"
 
