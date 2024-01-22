@@ -29,9 +29,9 @@ server.use('/api/upload', uploadRoutes);
 server.use('/api/auth', authRoutes);
 
 
-/*server.get('/', (req, res) => {
+server.get('/', (req, res) => {
   res.send('Helloworld');
-})*/
+})
 
 // Serve static files from the React build directory
 //server.use(express.static(path.join(__dirname, './build')));
