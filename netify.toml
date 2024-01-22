@@ -1,10 +1,9 @@
 [build]
-   command = "npm install && npm run start"
-   functions = "routes/"
+  command = "npm install && npm run build"
+  functions = "routes/"
+  publish = "../frontend/build"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-
