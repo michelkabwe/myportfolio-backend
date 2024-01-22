@@ -6,7 +6,7 @@ const server = express();
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'https://frontend-ovlkhg7sy-michelkabwe.vercel.app',
+  origin: 'https://michelkabwe.netlify.app',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   credentials: true
 };
