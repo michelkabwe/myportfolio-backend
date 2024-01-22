@@ -6,11 +6,10 @@ const server = express();
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'https://michelkabwe.netlify.app',
+  origin: 'https://frontend-ovlkhg7sy-michelkabwe.vercel.app',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   credentials: true
 };
-
 server.use(cors());
 server.use(cors(corsOptions));
 
