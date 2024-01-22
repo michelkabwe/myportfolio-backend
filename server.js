@@ -38,7 +38,7 @@ server.get('/', (req, res) => {
 
 // Handle all other routes by serving the React app's index.html
 //server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  //res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 //});
 
 
