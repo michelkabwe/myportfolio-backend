@@ -6,7 +6,7 @@ const server = express();
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'https://localhost:3000',
+  origin: 'https://michelkabwe-staging.netlify.app/',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   credentials: true
 };
@@ -29,17 +29,17 @@ server.use('/api/upload', uploadRoutes);
 server.use('/api/auth', authRoutes);
 
 
-/*server.get('/', (req, res) => {
+server.get('/', (req, res) => {
   res.send('Helloworld');
-})*/
+})
 
 // Serve static files from the React build directory
-server.use(express.static(path.join(__dirname, '../frontend/build')));
+//server.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Handle all other routes by serving the React app's index.html
-server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});
+//server.get('*', (req, res) => {
+  //res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+//});
 
 
 const PORT = process.env.PORT || 3001;
