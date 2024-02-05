@@ -1,22 +1,20 @@
-const admin = require("firebase-admin");
+const admin = require('firebase-admin');
+require('dotenv').config();
 
-const serviceAccount = require("./myportfolio-private-key.json");
+const firebaseKeyPath = process.env.FIREBASE_KEY_PATH;
+const databaseURL = process.env.FIREBASE_DATABASE_URL;
+const storageBucket = process.env.FIREBASE_STORAGE_BUCKET;
+const serviceAccount = require(firebaseKeyPath);
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://myportfolio-4c53c-default-rtdb.europe-west1.firebasedatabase.app",
-  storageBucket: "myportfolio-4c53c.appspot.com"
-
+  databaseURL: databaseURL,
+  storageBucket: storageBucket
 });
 
-function getDataBase(){
+function getDataBase() {
   return admin.firestore();
 }
 
-
-
 module.exports = { getDataBase };
-
-
-
-
