@@ -6,7 +6,7 @@ const server = express();
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'https://localhost:3000',
+  origin: 'https://michelkabwe.netlify.app/',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   credentials: true
 };
