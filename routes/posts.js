@@ -98,6 +98,38 @@ router.post('/', async (req, res) => {
 });
 
 
+router.put('/:id/edit', async (req, res) => {
+
+    try {
+
+        const { title, content, category_id, imageUrl, liveUrl, sourceCode } = req.body;
+
+        const postId = req.params.id;
+
+        const updateFields = {
+            title: title,
+            content: content,
+            category_id: category_id,
+            imageUrl: imageUrl,
+            liveUrl: liveUrl,
+            sourceCode: sourceCode
+        };
+
+        await db.collection('posts').doc(postId).update(updateFields);
+
+        const updatedPostDoc = await db.collection('posts').doc(postId).get();
+        const updatedPost = { id: updatedPostDoc.id, ...updatedPostDoc.data() };
+
+        res.status(200).json({ message: 'Post updated successfully', updatedPost: updatedPost });
+
+    } catch (error) {
+        console.log("error", error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+
+})
+
+
 
 
 module.exports = router;
