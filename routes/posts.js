@@ -152,7 +152,7 @@ router.put('/:id/edit', async (req, res) => {
         const updateFields = {
             title: title,
             content: content,
-            category_id: category_id,
+            category_id: category_id || null,
             //imageUrl: imageUrl,
             liveUrl: liveUrl,
             sourceCode: sourceCode
