@@ -24,7 +24,48 @@ router.get('/', async (req, res) => {
     }
 });
 
+/*router.get('/', async (req, res) => {
+
+    try {
+        const posts = []
+
+        const docRef = db.collection('posts');
+        const snapShot = await docRef.get();
+        if (snapShot) {
+            snapShot.forEach((doc) => {
+                const data = doc.data();
+                data.id = doc.id;
+                posts.push(data);
+            })
+            res.status(200).send(posts);
+        }
+    } catch (error) {
+        console.error("error", error);
+    }
+});*/
+
 router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+
+        const docRef = await db.collection('posts').doc(id).get();
+
+        if (!docRef.exists) {
+            res.status(404).send("Post not found!");
+            return;
+        } else {
+            const userData = docRef.data();
+            const dataWithId = { id: docRef.id, ...userData }
+            res.status(200).send(dataWithId);
+        }
+    } catch (error) {
+        console.error('Server error, Something went wrong!' + error.message);
+        res.status(500).send(error.message);
+    }
+})
+
+router.get('/:id/edit', async (req, res) => {
     const id = req.params.id;
 
     try {
