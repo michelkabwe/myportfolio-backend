@@ -46,7 +46,7 @@ router.post('/', upload.single('file'), async (req, res) => {
   }
 });
 
-router.put(':id/edit/', upload.single('file'), async (req, res) => {
+router.put('/:id/edit', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(200).json({
