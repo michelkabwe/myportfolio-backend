@@ -13,14 +13,13 @@ router.post('/', upload.single('file'), async (req, res) => {
     if (!req.file) {
       return res.status(200).json({
         message: 'No file uploaded',
-        imageUrl: null // You can set it to null or any default value you prefer
+        imageUrl: null
       });
     }
 
     const uploadedFile = req.file;
     const destination = bucket.file(`images/${uploadedFile.originalname}`);
 
-    // Ensure you're passing the file buffer directly to the Firebase bucket upload
     await destination.save(uploadedFile.buffer, {
       metadata: {
         contentType: uploadedFile.mimetype,
@@ -41,9 +40,45 @@ router.post('/', upload.single('file'), async (req, res) => {
       imageUrl: downloadUrl
     });
 
-    // Send a success response
   } catch (error) {
-    // Log the error for debugging purposes
+    console.error('Error uploading file:', error);
+    return res.status(500).send('Error uploading file.');
+  }
+});
+
+router.put('/edit/:id', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(200).json({
+        message: 'No file uploaded',
+        imageUrl: null
+      });
+    }
+
+    const uploadedFile = req.file;
+    const destination = bucket.file(`images/${uploadedFile.originalname}`);
+
+    await destination.save(uploadedFile.buffer, {
+      metadata: {
+        contentType: uploadedFile.mimetype,
+      },
+    });
+
+    const expirationDate = new Date('2100-01-01T00:00:00Z');
+
+    const [downloadUrl] = await destination.getSignedUrl({
+      action: 'read',
+      expires: expirationDate,
+
+
+    });
+
+    res.status(200).json({
+      message: 'File uploaded successfully',
+      imageUrl: downloadUrl
+    });
+
+  } catch (error) {
     console.error('Error uploading file:', error);
     return res.status(500).send('Error uploading file.');
   }
