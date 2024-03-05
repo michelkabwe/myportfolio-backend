@@ -144,7 +144,7 @@ router.put('/:id/edit', async (req, res) => {
 
    try {
 
-        const { title, content, category_id, /*imageUrl,*/ liveUrl, sourceCode } = req.body;
+        const { title, content, category_id, imageUrl, liveUrl, sourceCode } = req.body;
 
 
         const postId = req.params.id;
@@ -153,7 +153,7 @@ router.put('/:id/edit', async (req, res) => {
             title: title,
             content: content,
             category_id: category_id || null,
-            //imageUrl: imageUrl,
+            imageUrl: imageUrl,
             liveUrl: liveUrl,
             sourceCode: sourceCode
         };
