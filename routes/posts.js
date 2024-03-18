@@ -24,26 +24,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-/*router.get('/', async (req, res) => {
-
-    try {
-        const posts = []
-
-        const docRef = db.collection('posts');
-        const snapShot = await docRef.get();
-        if (snapShot) {
-            snapShot.forEach((doc) => {
-                const data = doc.data();
-                data.id = doc.id;
-                posts.push(data);
-            })
-            res.status(200).send(posts);
-        }
-    } catch (error) {
-        console.error("error", error);
-    }
-});*/
-
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
 
@@ -112,7 +92,8 @@ router.delete('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 
     try {
-        const { title, content, selectedCategory, imageUrl, liveUrl, sourceCode } = req.body;
+        const { title, content, selectedCategory, imageUrl, liveUrl, sourceCode, codeLangIcon } = req.body;
+        console.log(codeLangIcon,'iconElementiconElement')
         const docRefId = await db.collection('posts').doc();
 
         const newPostref = await db.collection('posts').add({
@@ -122,7 +103,10 @@ router.post('/', async (req, res) => {
             category_id: selectedCategory,
             imageUrl: imageUrl,
             liveUrl: liveUrl,
-            sourceCode: sourceCode
+            sourceCode: sourceCode,
+            codeLangIcon: codeLangIcon
+
+
 
         });
 
